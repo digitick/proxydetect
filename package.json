@@ -1,0 +1,27 @@
+{
+  "name": "proxydetect",
+  "version": "0.0.1",
+  "description": "Detect HTTP(S) proxy OS configuration",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digitick/proxydetect.git"
+  },
+  "keywords": [
+    "proxy",
+    "detect"
+  ],
+  "author": "Digitick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/digitick/proxydetect/issues"
+  },
+  "homepage": "https://github.com/digitick/proxydetect#readme",
+  "dependencies": {
+    "winreg": "^1.2.3"
+  }
+}
