@@ -1,5 +1,26 @@
 var winreg = require('winreg')
 
+function parseProxyString(proxystring) {
+    var proxies = proxystring.split(';')
+
+    if(1 === proxies.length) {
+        return {
+            http: proxystring,
+            https: proxystring,
+            ftp: proxystring,
+            socks: proxystring
+        }
+    }
+
+    return proxies.map(function(i) {
+            return i.split('=')
+    }).reduce(function(obj,i) {
+        var [type, host] = i
+        obj[type] = host
+        return obj
+    }, {})
+}
+
 module.exports = function(callback) {
     if(typeof callback !== 'function') {
         throw new TypeError('Expecting callback')
@@ -24,7 +45,7 @@ module.exports = function(callback) {
             }
 
             if('ProxyServer' === item.name) {
-                proxy.server = item.value
+                proxy.server = parseProxyString(item.value)
             }
         })
 
