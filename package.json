@@ -1,6 +1,6 @@
 {
   "name": "proxydetect",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Detect HTTP(S) proxy OS configuration",
   "main": "index.js",
   "scripts": {
