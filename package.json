@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "test": "eslint index.js"
+    "test": "eslint index.js test && jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "winreg": "^1.2.3"
   },
   "devDependencies": {
-    "eslint": "^3.19.0"
+    "eslint": "^3.19.0",
+    "jest": "^19.0.2"
   }
 }
