@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint index.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/digitick/proxydetect#readme",
   "dependencies": {
     "winreg": "^1.2.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0"
   }
 }

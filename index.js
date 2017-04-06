@@ -1,9 +1,9 @@
-var winreg = require('winreg')
+var Winreg = require('winreg')
 
-function parseProxyString(proxystring) {
+function parseProxyString (proxystring) {
     var proxies = proxystring.split(';')
 
-    if(1 === proxies.length) {
+    if (proxies.length === 1) {
         return {
             http: proxystring,
             https: proxystring,
@@ -12,39 +12,39 @@ function parseProxyString(proxystring) {
         }
     }
 
-    return proxies.map(function(i) {
-            return i.split('=')
-    }).reduce(function(obj,i) {
+    return proxies.map(function (i) {
+        return i.split('=')
+    }).reduce(function (obj, i) {
         var [type, host] = i
         obj[type] = host
         return obj
     }, {})
 }
 
-module.exports = function(callback) {
-    if(typeof callback !== 'function') {
+module.exports = function (callback) {
+    if (typeof callback !== 'function') {
         throw new TypeError('Expecting callback')
     }
-    var regkey = new winreg({
-        hive: winreg.HKCU,
+    var regkey = new Winreg({
+        hive: Winreg.HKCU,
         key: '\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\'
     })
 
-    regkey.values(function(err, items) {
+    regkey.values(function (err, items) {
         var proxy = {
             enable: false,
             server: null
         }
-        if(err) {
+        if (err) {
             return callback(err, proxy)
         }
 
-        items.forEach(function(item) {
-            if('ProxyEnable' === item.name && '0x1' === item.value) {
+        items.forEach(function (item) {
+            if (item.name === 'ProxyEnable' && item.value === '0x1') {
                 proxy.enable = true
             }
 
-            if('ProxyServer' === item.name) {
+            if (item.name === 'ProxyServer') {
                 proxy.server = parseProxyString(item.value)
             }
         })
