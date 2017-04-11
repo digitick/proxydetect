@@ -1,7 +1,12 @@
+const os = require('os')
 const Winreg = require('winreg')
 const Parser = require('./parser.js')
 
 module.exports = callback => {
+    if (os.platform() !== 'win32') {
+        throw new Error('Unsupported platform')
+    }
+
     if (typeof callback !== 'function') {
         throw new TypeError('Expecting callback')
     }
