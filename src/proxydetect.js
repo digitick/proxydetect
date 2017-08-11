@@ -1,39 +1,13 @@
 const os = require('os')
-const Winreg = require('winreg')
-const Parser = require('./parser.js')
+
+if (os.platform() !== 'win32' && os.platform() !== 'linux') {
+    throw new Error('Unsupported platform')
+}
 
 module.exports = callback => {
-    if (os.platform() !== 'win32') {
-        throw new Error('Unsupported platform')
-    }
-
     if (typeof callback !== 'function') {
         throw new TypeError('Expecting callback')
     }
-    var regkey = new Winreg({
-        hive: Winreg.HKCU,
-        key: '\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\'
-    })
 
-    regkey.values((err, items) => {
-        var proxy = {
-            enable: false,
-            server: Parser.DEFAULT
-        }
-        if (err) {
-            return callback(err, proxy)
-        }
-
-        items.forEach((item) => {
-            if (item.name === 'ProxyEnable' && item.value === '0x1') {
-                proxy.enable = true
-            }
-
-            if (item.name === 'ProxyServer') {
-                proxy.server = Parser.parse(item.value)
-            }
-        })
-
-        return callback(null, proxy)
-    })
+    return (require('./proxydetect_' + os.platform() + '.js'))(callback)
 }

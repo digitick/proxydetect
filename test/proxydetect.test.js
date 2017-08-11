@@ -1,7 +1,7 @@
 const os = require('os')
 const proxydetect = require('..')
 
-if (os.platform() !== 'win32') {
+if (os.platform() !== 'win32' && os.platform() !== 'linux') {
     test('Unsupported platform', () => {
         expect(() => {
             proxydetect()
