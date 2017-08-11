@@ -4,8 +4,8 @@ module.exports = callback => {
         server: {
             http: process.env.HTTP_PROXY || '',
             https: process.env.HTTPS_PROXY || '',
-            ftp: '',
-            socks: ''
+            ftp: process.env.FTP_PROXY || '',
+            socks: process.env.SOCKS_PROXY || ''
         }
     }
 
